@@ -1,0 +1,17 @@
+{
+    "name": "gabriel/transportes",
+    "description": "Cadastro de linhas de ônibus coletivo, interestadual e escolar",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "gabriel",
+            "email": "gabrielmwdog@gmail.com"
+        }
+    ],
+
+
+    "require": {
+        "twbs/bootstrap": "^4.1",
+        "components/jquery": "^3.3"
+    }
+}
