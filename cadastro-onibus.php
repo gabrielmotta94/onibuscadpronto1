@@ -68,7 +68,7 @@ include_once 'util/helper.class.php';
             <input type="text" name="destino" placeholder="Destino: " class="form-control">
           </div>
             <div class="form-group">
-              <input type="time" name="horasaida" placeholder="Horário saída: " class="form-control">
+              <input type="time" name="horaSaida" placeholder="Horário saída: " class="form-control">
             </div>
             <div class="form-group">
             <input type="text" name="motorista" placeholder="Motorista: " class="form-control">
@@ -89,7 +89,7 @@ include_once 'util/helper.class.php';
             $oni->numeroLinha = $_POST['numerolinha'];
             $oni->origem = Padronizacao::antiXSS(Padronizacao::padronizarMaiMin($_POST['origem']));
             $oni->destino = Padronizacao::antiXSS(Padronizacao::padronizarMaiMin($_POST['destino']));
-            $oni->horaSaida = $_POST['horasaida'];
+            $oni->horaSaida = $_POST['horaSaida'];
             $oni->motorista = Padronizacao::antiXSS(Padronizacao::padronizarMaiMin($_POST['motorista']));
 
             $onibusDAO = new OnibusDAO();

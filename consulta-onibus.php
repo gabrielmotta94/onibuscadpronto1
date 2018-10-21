@@ -71,6 +71,49 @@ $array = $onibusDAO->buscarOnibus();
         return;
     }
     ?>
+    <form name="filtrar" method="post" action="">
+     <div class="row">
+       <div class="form-group">
+         <input type="text" name="txtfiltro" class="form-control" placeholder="Digite sua pesquisa">
+       </div>
+       <div class="form-group">
+
+         <select name="selfiltro" class="form-control">
+           <option value="todos">Todos</option>
+           <option value="idonibus">ID</option>
+           <option value="numeroOnibus">Nro. Ônibus</option>
+           <option value="numeroLinha">Linha</option>
+           <option value="origem">Origem</option>
+           <option value="destino">Destino</option>
+           <option value="horaSaida">Hor. Saída</option>
+           <option value="motorista">Motorista</option>
+         </select>
+       </div>
+     </div><!-- fecha row -->
+     <div class="form-group">
+       <input type="submit" name="filtrar" value="Filtrar" class="btn btn-primary btn-block">
+     </div>
+   </form>
+
+   <?php
+   if(isset($_POST['filtrar'])){
+     $pesquisa = $_POST['txtfiltro'];
+     $filtro = $_POST['selfiltro'];
+
+if(!empty($pesquisa)){
+     $oniDAO = new OnibusDAO();
+     $array = $oniDAO->filtrar($pesquisa, $filtro);
+}else{
+     echo "Digite uma pesquisa!";
+   }//fecha else
+    //opção:
+     if(count($array)==0){
+       echo "<h2>Sua pesquisa não retornou ônibus!</h2>";
+       return;
+     }
+   }
+   ?>
+
     <div class="table-responsive">
       <table class="table table-striped table-bordered table-hover table-condensed">
         <thead>
@@ -107,6 +150,7 @@ $array = $onibusDAO->buscarOnibus();
               echo "<td>$o->horaSaida</td>";
               echo "<td>$o->motorista</td>";
               echo "<td><a href='consulta-onibus.php?id=$o->idOnibus' class='btn btn-danger'>Excluir</a></td>";
+              echo "<td><a href='alterar-onibus.php?id=$o->idOnibus' name='alterar' class='btn btn-warning'>Alterar</a></td>";
             echo "</tr>";
           }
           ?>
@@ -114,12 +158,13 @@ $array = $onibusDAO->buscarOnibus();
       </table>
     </div><!-- table responsive -->
   </div>
+
   <?php
   if(isset($_GET['id'])){
     $onibusDAO->deletarOnibus($_GET['id']);
     $_SESSION['msg'] = "Ônibus excluído com sucesso!";
     ob_end_flush();
-    header("location:consulta-onibus.php");
+    //header("location:consulta-onibus.php");
   }
   ?>
 </body>

@@ -71,6 +71,48 @@ $array = $intermunicipalDAO->buscarOnibus();
         return;
     }
     ?>
+    <form name="filtrar" method="post" action="">
+     <div class="row">
+       <div class="form-group">
+         <input type="text" name="txtfiltro" class="form-control" placeholder="Digite sua pesquisa">
+       </div>
+       <div class="form-group">
+
+         <select name="selfiltro" class="form-control">
+           <option value="todos">Todos</option>
+           <option value="idonibus">ID</option>
+           <option value="numeroOnibus">Nro. Ônibus</option>
+           <option value="numerolinha">Linha</option>
+           <option value="destino">Destino</option>
+           <option value="horaSaida">Hor. Saída</option>
+           <option value="modalidade">modalidade</option>
+           <option value="motorista">Motorista</option>
+         </select>
+       </div>
+     </div><!-- fecha row -->
+     <div class="form-group">
+       <input type="submit" name="filtrar" value="Filtrar" class="btn btn-primary btn-block">
+     </div>
+   </form>
+
+   <?php
+   if(isset($_POST['filtrar'])){
+     $pesquisa = $_POST['txtfiltro'];
+     $filtro = $_POST['selfiltro'];
+
+if(!empty($pesquisa)){
+     $oniDAO = new IntermunicipalDAO();
+     $array = $oniDAO->filtrar($pesquisa, $filtro);
+}else{
+     echo "Digite uma pesquisa!";
+   }//fecha else
+    //opção:
+     if(count($array)==0){
+       echo "<h2>Sua pesquisa não retornou ônibus!</h2>";
+       return;
+     }
+  }
+  ?>
     <div class="table-responsive">
       <table class="table table-striped table-bordered table-hover table-condensed">
         <thead>
@@ -103,10 +145,11 @@ $array = $intermunicipalDAO->buscarOnibus();
               echo "<td>$o->numeroOnibus</td>";
               echo "<td>$o->numeroLinha</td>";
               echo "<td>$o->destino</td>";
-              echo "<td>$o->horasaida</td>";
+              echo "<td>$o->horaSaida</td>";
               echo "<td>$o->modalidade</td>";
               echo "<td>$o->motorista</td>";
               echo "<td><a href='consulta-intermunicipal.php?id=$o->idOnibus' class='btn btn-danger'>Excluir</a></td>";
+              echo "<td><a href='alterar-intermunicipal.php?id=$o->idOnibus' name='alterar' class='btn btn-warning'>Alterar</a></td>";
             echo "</tr>";
           }
           ?>
@@ -119,7 +162,7 @@ $array = $intermunicipalDAO->buscarOnibus();
     $intermunicipalDAO->deletarOnibus($_GET['id']);
     $_SESSION['msg'] = "Ônibus excluído com sucesso!";
     ob_end_flush();
-    header("location:consulta-intermunicipal.php");
+  //  header("location:consulta-intermunicipal.php");
   }
   ?>
 </body>

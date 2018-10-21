@@ -1,7 +1,7 @@
 <?php
 class Onibus {
 
-  private $idonibus;
+  private $idOnibus;
   private $numeroOnibus;
   private $numeroLinha;
   private $origem;
@@ -16,7 +16,7 @@ class Onibus {
   public function __set($a, $v){$this->$a = $v;}
 
   public function __toString(){
-    return nl2br ("ID do Onibus: $this->idonibus
+    return nl2br ("ID do Onibus: $this->idOnibus
                   Numero do Onibus: $this->numeroOnibus
                   Numero da Linha: $this->numeroLinha
                   Origem: $this->origem
