@@ -77,7 +77,7 @@ if(isset($_GET['id'])){
                 <option value="Executivo">Executivo</option>
                 <option value="Semi-Leito">Semi-Leito</option>
                 <option value="Leito">Leito</option>
-              </select></div> 
+              </select></div>
           <div class="form-group">
             <input type="text" name="motorista" placeholder="Motorista:" class="form-control"
                     value="<?php if(isset($oni)){ echo $oni->motorista; } ?>"></div>
@@ -108,7 +108,6 @@ if(isset($_GET['id'])){
             $oniDAO = new InterestadualDAO();
             $oniDAO->alterarInterestadual($oni);
 
-            echo "BLA: ".$oni;
 
             $_SESSION['msg'] = "Interestadual alterado com sucesso!";
             header("location:consulta-interestadual.php");
